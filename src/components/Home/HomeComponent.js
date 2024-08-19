@@ -63,7 +63,7 @@ const HomeComponent = () => {
     }
   }, [designations, setDesignations]);
 
-  // Fetching allEmployee data using Redis
+ 
   const {
     data: allEmployee,
     isLoading: isLoadingEmployees,
