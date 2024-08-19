@@ -1,59 +1,73 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   flexRender,
   useReactTable,
   getCoreRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  getFilteredRowModel, // Import the correct filtered row model
 } from "@tanstack/react-table";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/Ui/table';
-import { DataTablePagination } from './DataTablePagination';
-import { DataTableToolbar } from './DataTableToolbar';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/Ui/table";
+import { DataTablePagination } from "./DataTablePagination";
+import { DataTableToolbar } from "./DataTableToolbar";
 
 const DataTable = ({ data, columns }) => {
-  const [sorting, setSorting] = React.useState([]);
-  const [selectedRows, setSelectedRows] = React.useState(new Set());
-  const [selectedRowData, setSelectedRowsData] = React.useState();
+  const [sorting, setSorting] = useState([]);
+  const [selectedRows, setSelectedRows] = useState(new Set());
+  const [selectedRowData, setSelectedRowsData] = useState();
+  const [globalFilter, setGlobalFilter] = useState(""); // Global filter state
 
   const table = useReactTable({
     data,
     columns,
     state: {
       sorting,
-      rowSelection: Object.fromEntries(Array.from(selectedRows).map(rowId => [rowId, true])), // convert Set to object
+      globalFilter, // Add global filter state
+      rowSelection: Object.fromEntries(
+        Array.from(selectedRows).map((rowId) => [rowId, true])
+      ),
     },
     onSortingChange: setSorting,
+    onGlobalFilterChange: setGlobalFilter, // Handle global filter change
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getFilteredRowModel: getFilteredRowModel(), // Use filtered row model instead of global filtered row model
     onRowSelectionChange: (selection) => {
-      // Convert selection object to Set of row IDs
       const newSelectedRows = new Set(
-        Object.entries(selection).filter(([_, isSelected]) => isSelected).map(([rowId]) => rowId)
+        Object.entries(selection)
+          .filter(([_, isSelected]) => isSelected)
+          .map(([rowId]) => rowId)
       );
       setSelectedRows(newSelectedRows);
     },
   });
 
   useEffect(() => {
-    // Get selected row data
-    const selectedRowData = Array.from(selectedRows).map(rowId => {
-      const row = table.getRowModel().rows.find(row => row.id === rowId);
-      if (row) {
-        // Map to desired fields
-        return row.original;
-      }
-      return null;
-    }).filter(row => row); // Filter out any null rows
-    setSelectedRowsData(selectedRowData)
-    // Log selected row data
-    
-    
-    // Update rowSelection state
-    table.setState(old => ({
+    const selectedRowData = Array.from(selectedRows)
+      .map((rowId) => {
+        const row = table.getRowModel().rows.find((row) => row.id === rowId);
+        if (row) {
+          return row.original;
+        }
+        return null;
+      })
+      .filter((row) => row);
+    setSelectedRowsData(selectedRowData);
+
+    table.setState((old) => ({
       ...old,
-      rowSelection: Object.fromEntries(Array.from(selectedRows).map(rowId => [rowId, true])), // convert Set to object
+      rowSelection: Object.fromEntries(
+        Array.from(selectedRows).map((rowId) => [rowId, true])
+      ),
     }));
   }, [selectedRows, table]);
 
@@ -66,7 +80,11 @@ const DataTable = ({ data, columns }) => {
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id} colSpan={header.colSpan} className="border border-gray-300">
+                  <TableHead
+                    key={header.id}
+                    colSpan={header.colSpan}
+                    className="border border-gray-300"
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(
