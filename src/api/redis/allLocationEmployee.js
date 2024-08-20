@@ -9,7 +9,7 @@ const redis = new Redis({
 
 export async function getAllLocationEmployee() {
   const cacheKey = 'allLocationEmployee';
-  const cacheTTL = 15 * 60; // Cache for 15 minutes
+  // Cache for 15 minutes
 
   try {
     const cachedData = await redis.get(cacheKey);
@@ -18,7 +18,7 @@ export async function getAllLocationEmployee() {
     }
 
     const data = await AllLocationEmployee();
-    await redis.set(cacheKey, JSON.stringify(data), 'EX', cacheTTL);
+    await redis.set(cacheKey, JSON.stringify(data));
 
     return data;
   } catch (error) {

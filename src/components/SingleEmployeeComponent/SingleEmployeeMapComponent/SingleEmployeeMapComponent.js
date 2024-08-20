@@ -30,7 +30,7 @@ const SingleEmployeeMapComponent = () => {
           zoom={14}
           className="w-full z-10 h-[100vh]"
         >
-          <ReactLeafletGoogleLayer apiKey="AIzaSyAf9yCy5ZZ6iEo0EyOWjUg4EpUHIeuZVWQ" />
+          <ReactLeafletGoogleLayer apiKey={process?.env?.NEXT_PUBLIC_GOOGLE_API_KEY} />
 
           <Marker
             position={[singleData.mlatitute, singleData.mlongitute]}

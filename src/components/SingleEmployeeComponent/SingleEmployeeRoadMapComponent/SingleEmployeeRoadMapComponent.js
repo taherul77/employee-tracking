@@ -16,7 +16,7 @@ const SingleEmployeeRoadMapComponent = () => {
 
   return (
     <MapContainer center={position} zoom={8} className="w-full z-10 h-[100vh]">
-      <ReactLeafletGoogleLayer apiKey="AIzaSyAf9yCy5ZZ6iEo0EyOWjUg4EpUHIeuZVWQ" />
+      <ReactLeafletGoogleLayer apiKey={process?.env?.NEXT_PUBLIC_GOOGLE_API_KEY} />
       <RoadMapComponent data={filteredEmployees} />
     </MapContainer>
   );
