@@ -4,7 +4,7 @@ import { DesignationData } from '@/api';
 const redis = new Redis({
   host: '127.0.0.1', // Replace with your Redis server's IP if necessary
   port: 6379, // Default Redis port
-  password: '123456', // Replace with your Redis password
+
 });
 
 export async function getDesignations() {

@@ -2,14 +2,14 @@ import Redis from 'ioredis';
 import { AllEmployee } from '@/api';
 
 const redis = new Redis({
-  host: '127.0.0.1', // Replace with your Redis server's IP if necessary
-  port: 6379, // Default Redis port
-  password: '123456', // Replace with your Redis password
+  host: process?.env?.REDIS_PUBLIC_HOST,
+  port: process?.env?.REDIS_PUBLIC_PORT, // Default Redis port
+ 
 });
 
 export async function getAllEmployee() {
   const cacheKey = 'allEmployee';
- 
+  const cacheTTL = 15 * 60;
 
   try {
     const cachedData = await redis.get(cacheKey);
@@ -18,7 +18,7 @@ export async function getAllEmployee() {
     }
 
     const data = await AllEmployee();
-    await redis.set(cacheKey, JSON.stringify(data));
+    await redis.set(cacheKey, JSON.stringify(data), 'EX', cacheTTL);
 
     return data;
   } catch (error) {

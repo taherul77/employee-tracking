@@ -2,15 +2,15 @@ import Redis from 'ioredis';
 import { AllLocationEmployee } from '@/api';
 
 const redis = new Redis({
-  host: '127.0.0.1',
-  port: 6379,
-  password: '123456',
+  host: process?.env?.REDIS_PUBLIC_HOST,
+  port: process?.env?.REDIS_PUBLIC_PORT,
+
 });
 
 export async function getAllLocationEmployee() {
   const cacheKey = 'allLocationEmployee';
   // Cache for 15 minutes
-
+  const cacheTTL = 15 * 60;
   try {
     const cachedData = await redis.get(cacheKey);
     if (cachedData) {
@@ -18,7 +18,7 @@ export async function getAllLocationEmployee() {
     }
 
     const data = await AllLocationEmployee();
-    await redis.set(cacheKey, JSON.stringify(data));
+    await redis.set(cacheKey, JSON.stringify(data), 'EX', cacheTTL);
 
     return data;
   } catch (error) {
