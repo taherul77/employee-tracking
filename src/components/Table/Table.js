@@ -3,7 +3,7 @@ import DataTable from './TableComponents/DataTable';
 
 const Table = ({ data }) => {
   return (
-    <div className="flex flex-col p-2">
+    <div className="flex flex-col ">
       <DataTable data={data} />
     </div>
   );

@@ -188,7 +188,7 @@ const MarketingComponent = () => {
           />
         )}
       </div> */}
-      <div className="flex flex-col justify-start items-center px-8">
+      <div className="flex flex-col justify-start items-center ">
         <SelectedEmployee
           designations={designations}
           allEmployee={allEmployee}

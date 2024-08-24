@@ -105,8 +105,8 @@ const SelectedEmployee = ({ designations, allEmployee, allLocationEmployee }) =>
   dataToDisplay = filterByTime(dataToDisplay);
 
   return (
-    <div className="flex flex-col items-center gap-4 py-10 justify-center">
-      <div className="flex flex-wrap gap-4 justify-center">
+    <div className="flex flex-col items-center gap-4 py-10 justify-center ">
+      <div className="flex flex-wrap gap-4   ">
         <DesignationSelect
           designations={designations}
           onDesignationSelect={(code) => setSelectedDesignation(code)}
@@ -121,7 +121,7 @@ const SelectedEmployee = ({ designations, allEmployee, allLocationEmployee }) =>
           </>
         )}
       </div>
-      <DataTable data={dataToDisplay} columns={Columns} />
+      <DataTable data={dataToDisplay} columns={Columns}   />
     </div>
   );
 };

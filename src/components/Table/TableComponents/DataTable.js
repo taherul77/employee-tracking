@@ -72,7 +72,7 @@ const DataTable = ({ data, columns }) => {
   }, [selectedRows, table]);
 
   return (
-    <div className="space-y-4 container px-5">
+    <div className="space-y-4 container px-1">
       <DataTableToolbar table={table} selectedRow={selectedRowData} />
       <div className="rounded-lg border">
         <Table className="overflow-x-auto border-e">

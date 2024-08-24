@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect , useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import WeekReport from "./WeekReport/WeekReport";
 import DailyReport from "./DailyReport/DailyReport";
 import MorningShift from "./MorningShift/MorningShift";
@@ -54,7 +54,6 @@ const HomeComponent = () => {
       }
       return response.json();
     },
-   
   });
 
   useEffect(() => {
@@ -63,7 +62,7 @@ const HomeComponent = () => {
     }
   }, [designations, setDesignations]);
 
- 
+  // Fetching allEmployee data using Redis
   const {
     data: allEmployee,
     isLoading: isLoadingEmployees,
@@ -88,7 +87,6 @@ const HomeComponent = () => {
       setAllEmployee(allEmployee);
     }
   }, [allEmployee, setAllEmployee]);
-
 
   const filteredAllLocationEmployee = useMemo(() => {
     return allLocationEmployee?.reduce((acc, current) => {
@@ -131,12 +129,16 @@ const HomeComponent = () => {
       }
     });
 
+    console.log("Active Count:", active);
+    console.log("Inactive Count:", inactive);
     return {
       activeCount: active,
       inactiveCount: inactive,
       activeEmployees: activeEmps,
     };
   }, [nonVacantEmployees, filteredAllLocationEmployee]);
+
+  console.log("Active Count:", activeCount);
 
   const {
     morningShiftEmployees,
@@ -155,15 +157,8 @@ const HomeComponent = () => {
 
     const morningShiftMap = new Map();
     const eveningShiftMap = new Map();
-    const inactiveMorningEmployees = [];
-    const inactiveEveningEmployees = [];
 
     allLocationEmployee.forEach((employee) => {
-      // Skip VACANT employees
-      if (employee.empName === "VACANT") {
-        return;
-      }
-
       const [time, period] = employee.gpsDataTime.split(" ");
       const [hours, minutes] = time.split(":").map(Number);
 
@@ -174,7 +169,6 @@ const HomeComponent = () => {
         gpsHour = 0;
       }
 
-      // Morning shift (6:00 AM to 1:59 PM)
       if (gpsHour >= 6 && gpsHour < 14) {
         const existing = morningShiftMap.get(employee.mkgProfNo);
         if (
@@ -184,10 +178,7 @@ const HomeComponent = () => {
         ) {
           morningShiftMap.set(employee.mkgProfNo, employee);
         }
-      }
-
-      // Evening shift (2:00 PM to 9:59 PM)
-      else if (gpsHour >= 14 && gpsHour < 22) {
+      } else if (gpsHour >= 14 && gpsHour < 22) {
         const existing = eveningShiftMap.get(employee.mkgProfNo);
         if (
           !existing ||
@@ -202,11 +193,10 @@ const HomeComponent = () => {
     const morningShiftEmployees = Array.from(morningShiftMap.values());
     const eveningShiftEmployees = Array.from(eveningShiftMap.values());
 
-    allEmployee.forEach((employee) => {
-      if (employee.empName === "VACANT") {
-        return;
-      }
+    const inactiveMorningEmployees = [];
+    const inactiveEveningEmployees = [];
 
+    nonVacantEmployees.forEach((employee) => {
       const isMorningActive = morningShiftEmployees.some(
         (emp) => emp.mkgProfNo === employee.mkgProfNo
       );
@@ -223,26 +213,29 @@ const HomeComponent = () => {
       }
     });
 
+
     return {
       morningShiftEmployees,
       eveningShiftEmployees,
       inactiveMorningEmployees,
       inactiveEveningEmployees,
     };
-  }, [allEmployee, allLocationEmployee]);
+  }, [allEmployee, allLocationEmployee, nonVacantEmployees]);
 
   const totalMorningEmployees = morningShiftEmployees.length;
   const totalEveningEmployees = eveningShiftEmployees.length;
   const totalInactiveMorning = inactiveMorningEmployees.length;
   const totalInactiveEvening = inactiveEveningEmployees.length;
 
+  console.log("Total Morning Employees:", totalMorningEmployees);
+  console.log("Total Evening Employees:", totalEveningEmployees);
+  console.log("Total Inactive Morning:", totalInactiveMorning);
+  console.log("Total Inactive Evening:", totalInactiveEvening);
+
   // Check current time to determine if it is evening
   const now = new Date();
   const currentHour = now.getHours();
   const isEvening = currentHour >= 14 && currentHour < 22;
-
-
-  
 
   if (isLoadingLocations || isLoadingEmployees || isLoadingDesignations) {
     return <SkeletonComponent />;
@@ -263,9 +256,11 @@ const HomeComponent = () => {
       </div> */}
       <div className="flex flex-wrap justify-center gap-5 py-5">
         <WeekReport />
-        <DailyReport   totalEmployees={totalNonVacantEmployees}
+        <DailyReport
+          totalEmployees={totalNonVacantEmployees}
           activeCount={activeCount}
-          inactiveCount={inactiveCount} />
+          inactiveCount={inactiveCount}
+        />
         <MorningShift
           activeEmployees={totalMorningEmployees}
           totalInactiveMorning={totalInactiveMorning}

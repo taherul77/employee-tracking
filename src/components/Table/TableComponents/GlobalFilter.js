@@ -19,7 +19,7 @@ export function GlobalFilter({ globalFilter, setGlobalFilter }) {
       placeholder="Search..."
       value={value || ""}
       onChange={onChange}
-      className="h-8 w-[200px] lg:w-[300px]"
+      className="h-10 w-[150px] lg:w-[200px]"
     />
   );
 }
