@@ -1,11 +1,8 @@
 "use client";
-
 import React, { useState } from "react";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
@@ -14,9 +11,14 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "../button";
 
-const DateSelect = () => {
+const DateSelect = ({ onDateChange }) => {
   const today = new Date();
   const [date, setDate] = useState(today);
+
+  const handleDateChange = (selectedDate) => {
+    setDate(selectedDate);
+    onDateChange(selectedDate); // Notify parent component of date change
+  };
 
   return (
     <Popover>
@@ -36,9 +38,9 @@ const DateSelect = () => {
         <Calendar
           mode="single"
           selected={date}
-          onSelect={setDate}
+          onSelect={handleDateChange}
           initialFocus
-          disabled={(date) => date > today} 
+          disabled={(date) => date > today}
         />
       </PopoverContent>
     </Popover>
