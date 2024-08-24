@@ -117,9 +117,7 @@ const SelectedEmployee = ({ designations, allEmployee, allLocationEmployee }) =>
             <DateSelect onDateChange={setSelectedDate} />
             <TimeSelect placeholder="from time" defaultValue="06:00" onTimeChange={setFromTime} />
             <TimeSelect placeholder="to time" defaultValue="18:00" onTimeChange={setToTime} />
-            <Button className="bg-gray-200 h-auto border w-[180px]">
-              Search
-            </Button>
+            
           </>
         )}
       </div>

@@ -166,10 +166,10 @@ const MarketingComponent = () => {
 
   return (
     <>
-      <div className="flex flex-wrap justify-center text-2xl font-bold gap-5 py-10">
+      <div className="flex flex-wrap justify-center text-2xl font-bold gap-5 pt-10">
         Marketing Employee Reports
       </div>
-      <div className="flex flex-wrap justify-center gap-5 pb-5">
+      {/* <div className="flex flex-wrap justify-center gap-5 pb-5">
         <WeekReport />
         <DailyReport
           
@@ -187,7 +187,7 @@ const MarketingComponent = () => {
             totalInactiveEvening={totalInactiveEvening}
           />
         )}
-      </div>
+      </div> */}
       <div className="flex flex-col justify-start items-center px-8">
         <SelectedEmployee
           designations={designations}

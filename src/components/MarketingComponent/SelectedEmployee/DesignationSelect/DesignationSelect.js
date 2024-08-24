@@ -16,7 +16,7 @@ const DesignationSelect = ({ designations, onDesignationSelect }) => {
       className="bg-white"
       onValueChange={(value) => onDesignationSelect(value)} 
     >
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="w-[120px]">
         <SelectValue placeholder="Select Designation" />
       </SelectTrigger>
       <SelectContent className="bg-white h-52">
