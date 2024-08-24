@@ -138,7 +138,7 @@ const HomeComponent = () => {
     };
   }, [nonVacantEmployees, filteredAllLocationEmployee]);
 
-  console.log("Active Count:", activeCount);
+
 
   const {
     morningShiftEmployees,
@@ -227,10 +227,7 @@ const HomeComponent = () => {
   const totalInactiveMorning = inactiveMorningEmployees.length;
   const totalInactiveEvening = inactiveEveningEmployees.length;
 
-  console.log("Total Morning Employees:", totalMorningEmployees);
-  console.log("Total Evening Employees:", totalEveningEmployees);
-  console.log("Total Inactive Morning:", totalInactiveMorning);
-  console.log("Total Inactive Evening:", totalInactiveEvening);
+
 
   // Check current time to determine if it is evening
   const now = new Date();
