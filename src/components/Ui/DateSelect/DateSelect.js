@@ -26,7 +26,7 @@ const DateSelect = ({ onDateChange }) => {
         <Button
           variant={"outline"}
           className={cn(
-            "w-[170px] justify-start text-left font-normal",
+            "w-[180px] justify-start text-left font-normal",
             !date && "text-muted-foreground"
           )}
         >

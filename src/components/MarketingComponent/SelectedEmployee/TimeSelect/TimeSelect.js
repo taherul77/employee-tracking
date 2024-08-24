@@ -17,7 +17,7 @@ const TimeSelect = ({ placeholder, defaultValue, onTimeChange }) => {
         value={value}
         onChange={handleTimeChange}
         placeholder={placeholder}
-        className="h-auto border cursor-pointer rounded-md w-[140px] p-2"
+        className="h-auto border cursor-pointer rounded-md w-[127px] p-2"
         autoComplete="off"
       />
     </>
