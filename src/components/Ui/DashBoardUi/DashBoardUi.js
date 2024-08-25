@@ -17,7 +17,7 @@ import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 const DashBoardUi = ({ children }) => {
   const [isPanelOneVisible, setIsPanelOneVisible] = useState(true);
   const [sizes, setSizes] = useState({
-    horizontalPanelSize: Cookies.get('horizontalPanelSize') || 5,
+    horizontalPanelSize: Cookies.get('horizontalPanelSize') || 4,
     verticalPanelOneSize: Cookies.get('verticalPanelOneSize') || 10,
     verticalPanelTwoSize: Cookies.get('verticalPanelTwoSize') || 70,
   });
@@ -65,8 +65,8 @@ const DashBoardUi = ({ children }) => {
           {(pathname !== "/dashboard/map" && pathname !== "/dashboard/single-employee/map" && pathname !== "/dashboard/single-employee/roadmap") && (
             <Panel
               defaultSize={sizes.verticalPanelOneSize}
-              minSize={8}
-              maxSize={15}
+              minSize={4}
+              maxSize={10}
               className=" border-gray-300"
             >
               <div className="flex h-full items-center justify-between bg-gray-200 px-5">

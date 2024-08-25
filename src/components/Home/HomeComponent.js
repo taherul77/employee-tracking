@@ -129,8 +129,8 @@ const HomeComponent = () => {
       }
     });
 
-    console.log("Active Count:", active);
-    console.log("Inactive Count:", inactive);
+   
+    
     return {
       activeCount: active,
       inactiveCount: inactive,

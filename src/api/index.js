@@ -11,6 +11,6 @@ export async function fetchData(url) {
     }
 }
 
-export const DesignationData = () => fetchData('http://103.219.160.253:5051/empgps_tracking/hrvdesignation/findAllHrvdesignationByAsStatus');
-export const AllEmployee = () => fetchData('http://103.219.160.253:5051/empgps_tracking/bovEmpInfo/findAllBovEmployeeInfos');
-export const AllLocationEmployee = () => fetchData('http://103.219.160.253:5051/empgps_tracking/empTrackInfo/allEmpGpsTrackInfos');
+export const DesignationData = () => fetchData(`${process?.env?.NEXT_PUBLIC_API}/hrvdesignation/findAllHrvdesignationByAsStatus`);
+export const AllEmployee = () => fetchData(`${process?.env?.NEXT_PUBLIC_API}/bovEmpInfo/findAllBovEmployeeInfos`);
+export const AllLocationEmployee = () => fetchData(`${process?.env?.NEXT_PUBLIC_API}/empTrackInfo/allEmpGpsTrackInfos`);
