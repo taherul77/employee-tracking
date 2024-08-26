@@ -22,7 +22,7 @@ import { DataTableToolbar } from "./DataTableToolbar";
 const DataTable = ({ data, columns }) => {
   const [sorting, setSorting] = useState([]);
   const [selectedRows, setSelectedRows] = useState(new Set());
-  const [selectedRowData, setSelectedRowsData] = useState();
+  const [selectedRowsData, setSelectedRowsData] = useState();
   const [globalFilter, setGlobalFilter] = useState(""); // Global filter state
 
   const table = useReactTable({
@@ -73,7 +73,7 @@ const DataTable = ({ data, columns }) => {
 
   return (
     <div className="space-y-4 container px-1">
-      <DataTableToolbar table={table} selectedRow={selectedRowData} />
+      <DataTableToolbar table={table} selectedRow={selectedRowsData} />
       <div className="rounded-lg border">
         <Table className="overflow-x-auto border-e">
           <TableHeader className="">
