@@ -1,11 +1,8 @@
 "use client";
 import React, { useEffect, useMemo } from "react";
-import WeekReport from "../Home/WeekReport/WeekReport";
-import DailyReport from "@/components/MarketingComponent/DailyReport/DailyReport";
-import MorningShift from "@/components/MarketingComponent/MorningShift/MorningShift";
-import EveningShift from "@/components/MarketingComponent/EveningShift/EveningShift";
-import SelectedEmployee from "./SelectedEmployee/SelectedEmployee";
 
+
+import SelectedEmployee from "@/components/MarketingComponent/SelectedEmployee/SelectedEmployee"
 import useStore from "@/store/store";
 
 const MarketingComponent = () => {
@@ -169,25 +166,7 @@ const MarketingComponent = () => {
       <div className="flex flex-wrap justify-center text-2xl font-bold gap-5 pt-10">
         Marketing Employee Reports
       </div>
-      {/* <div className="flex flex-wrap justify-center gap-5 pb-5">
-        <WeekReport />
-        <DailyReport
-          
-          totalEmployees={totalNonVacantEmployees}
-          activeCount={activeCount}
-          inactiveCount={inactiveCount}
-        />
-        <MorningShift
-          activeEmployees={totalMorningEmployees}
-          totalInactiveMorning={totalInactiveMorning}
-        />
-        {isEvening && (
-          <EveningShift
-            totalEveningEmployees={totalEveningEmployees}
-            totalInactiveEvening={totalInactiveEvening}
-          />
-        )}
-      </div> */}
+      
       <div className="flex flex-col justify-start items-center ">
         <SelectedEmployee
           designations={designations}
